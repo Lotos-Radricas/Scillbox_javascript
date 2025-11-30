@@ -1,0 +1,14 @@
+* Итоговый код для проверки.
+
+// Исправьте код этой программы так, что в консоль выводился результат выполнения программы, а не ошибка
+const currentYear = 2025
+
+let student = "Илья"
+let year = 2006
+let age = currentYear - year
+
+console.log("Студент:", student);
+console.log("Год рождения:", year);
+console.log("Возраст:", age); 
+
+console.log()
