@@ -1,0 +1,60 @@
+body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        .button_addBook {
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #04dd25;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button_addBook:hover {
+            background-color: #047923;
+        }
+        .button_searchBook {
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button_searchBook:hover {
+            background-color: #0455ac;
+        }
+
+        #book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #book-list li {
+            padding: 10px;
+        }
+           
+        /* Класс для выделения найденной книги */
+        .highlight {
+            background-color: #e8f805b3;
+            font-weight: bold;
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+        
