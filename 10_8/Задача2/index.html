@@ -20,3 +20,26 @@
   <button id="addBtn">Добавить элемент</button>
   <button id="removeBtn">Удалить элемент</button>
 </div>
+
+<script>
+  const addBtn = document.getElementById('addBtn');
+  const removeBtn = document.getElementById('removeBtn');
+  const list = document.getElementById('myList');
+
+  // Обработчик для добавления элемента
+  addBtn.onclick = () => {
+    const li = document.createElement('li');
+    li.textContent = 'Новый элемент списка';
+    list.appendChild(li);
+  };
+
+  // Обработчик для удаления последнего элемента
+  removeBtn.onclick = () => {
+    if (list.lastChild) {
+      list.removeChild(list.lastChild);
+    }
+  };
+</script>
+
+</body>
+</html>
