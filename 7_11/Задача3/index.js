@@ -64,30 +64,4 @@
             renderThings(Things); // Перерисовываем список 
         }
 
-        // Функция поиска списка минимальных ростов
-        function finderMinList(arr, minThing) {
-            const rezList = [];
-            
-            for (const item of arr) {
-
-                if (item >= minThing ) {
-                    rezList.push(item);                                    
-                }                
-            }
-            return rezList
-        }
         
-        
-        function searchThing() {
-            const searchTerm = prompt('Введите минимальный рост')
-
-            if (searchTerm === null || searchTerm.trim() === '') {
-                alert('Рост не введён!');
-
-                renderThings (Things);
-            }
-            const findList = finderMinList(Things, searchTerm)
-            renderThings (findList)
-
-        }
-     
