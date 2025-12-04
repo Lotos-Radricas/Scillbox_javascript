@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  background-color: #000000;
+}
+/* gallery */
+
+.gallery {
+  margin-bottom: 30px;
+}
+
+.active-photo {
+  width: 970px;
+  margin-right: 30px;
+  padding-left: 30px;
+
+}
+
+.preview-list {
+  margin: 0;
+  padding-left: 30px;
+  padding-top: 30px;
+  /*width: 170px;*/
+  list-style: none; /* Убираем стандартные маркеры списка */
+  
+  display: flex;   /* Используем Flexbox для размещения элементов в строку */
+  gap: 10px;       /* Добавляем небольшое расстояние между картинками */
+}
+
+.preview-list li {
+  margin-bottom: 30px;
+  width: 170px;    /* Задаем размер картинок */
+  height: auto;
+  border: 1px solid #000000;
+}
+
+.preview-list li:last-child {
+  margin-bottom: 0;
+}
+
+.preview-list a {
+  position: relative;
+  display: block;
+}
+
+.preview-list img {
+  display: block;
+}
