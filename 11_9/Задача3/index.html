@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Дизайн банковской карты</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #eef2f3;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  /* Стиль для формы */
+  .form-container {
+    max-width: 400px;
+    margin: 0 auto 30px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border-radius: 4px;
+  }
+
+  /* Стиль для карты */
+  #card {
+    width: 350px;
+    min-height: 200px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Стиль для подсветки при фокусе */
+  .highlight {
+    border: 2px solid #0cdbf2;
+    background-color: azure;
+  }
+</style>
+</head>
+<body>
+
+<h1>Настройка оформления банковской карты</h1>
+
+<div class="form-container">
+  <label for="cardText">Введите текст на карте:</label>
+  <input type="text" id="cardText" placeholder="Текст на карте" />
+
+  <label for="colorSelect">Выберите цвет карты:</label>
+  <select id="colorSelect">
+    <option value="red">Красный</option>
+    <option value="blue" selected>Синий</option>
+    <option value="green">Зелёный</option>
+  </select>
+</div>
+
+<div id="card">Текст на карте</div>
+
+<script>
+  const inputText = document.getElementById('cardText');
+  const colorSelect = document.getElementById('colorSelect');
+  const card = document.getElementById('card');
+
+  // Обновление текста карты при вводе
+  inputText.addEventListener('input', () => {
+    card.textContent = inputText.value || 'Текст на карте';
+  });
+
+  // Изменение стиля поля при фокусе
+  inputText.addEventListener('focus', () => {
+    inputText.classList.add('highlight');
+  });
+  inputText.addEventListener('blur', () => {
+    inputText.classList.remove('highlight');
+  });
+
+  // Изменение цвета карты при выборе
+  colorSelect.addEventListener('change', () => {
+    switch (colorSelect.value) {
+      case 'red':
+        card.style.backgroundColor = 'red';
+        break;
+      case 'blue':
+        card.style.backgroundColor = 'blue';
+        break;
+      case 'green':
+        card.style.backgroundColor = 'green';
+        break;
+    }
+  });
+
+  // Инициализация цвета карты по умолчанию
+  window.addEventListener('load', () => {
+    // Установим цвет в соответствии с выбранным значением
+    const initialColor = colorSelect.value;
+    switch (initialColor) {
+      case 'red':
+        card.style.backgroundColor = 'red';
+        break;
+      case 'blue':
+        card.style.backgroundColor = 'blue';
+        break;
+      case 'green':
+        card.style.backgroundColor = 'green';
+        break;
+    }
+  });
+</script>
+
+</body>
+</html>
