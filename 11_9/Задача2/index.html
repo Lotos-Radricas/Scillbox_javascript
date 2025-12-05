@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Калькулятор стоимости доставки</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f9f9f9;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    form {
+        max-width: 600px;
+        margin: 0 auto 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"] {
+        width: 200px;
+        padding: 8px;
+        margin-top: 4px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        height: 50p;
+    }
+    button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    table, th, td {
+        border: 1px solid #ccc;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    /* Стиль подсветки для фокуса */
+    .highlight {
+        border: 2px solid #007BFF;
+        box-shadow: 0 0 8px rgba(0,123,255,0.5);
+    }
+</style>
+</head>
+<body>
+
+<h1>Калькулятор стоимости доставки</h1>
+
+<form id="productForm">
+    <label for="name">Название товара:
+    <input type="text" id="name" name="name" required /></label>
+
+    <label for="weight">Вес товара (кг):
+    <input type="number" id="weight" name="weight" min="1" step="1" required /></label>
+
+    <label for="distance">Расстояние доставки (км):
+    <input type="number" id="distance" name="distance" min="1" step="1" required /></label>
+
+    <button type="submit">Добавить товар</button>
+</form>
+
+<table class="product-table">
+    <thead>
+        <tr>
+            <th>Название товара</th>
+            <th>Вес (кг)</th>
+            <th>Расстояние (км)</th>
+            <th>Стоимость доставки</th>
+        </tr>
+    </thead>
+    <tbody id="productBody">
+        <!-- Здесь будут добавляться товары -->
+    </tbody>
+</table>
+
+<script>
+    const form = document.getElementById('productForm');
+    const nameInput = document.getElementById('name');
+    const weightInput = document.getElementById('weight');
+    const distanceInput = document.getElementById('distance');
+    const tbody = document.getElementById('productBody');
+
+    // Валидация и подсветка при фокусе
+    [nameInput, weightInput, distanceInput].forEach(input => {
+        input.addEventListener('focus', () => {
+            input.classList.add('highlight');
+        });
+        input.addEventListener('blur', () => {
+            input.classList.remove('highlight');
+        });
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Валидация
+        const name = nameInput.value.trim();
+        const weight = parseFloat(weightInput.value);
+        const distance = parseFloat(distanceInput.value);
+
+        if (name === '') {
+            alert('Введите название товара.');
+            nameInput.focus();
+            return;
+        }
+        if (isNaN(weight) || weight <= 0) {
+            alert('Введите корректный положительный вес.');
+            weightInput.focus();
+            return;
+        }
+        if (isNaN(distance) || distance <= 0) {
+            alert('Введите корректное положительное расстояние.');
+            distanceInput.focus();
+            return;
+        }
+
+        // Расчет стоимости
+        const deliveryCost = ((weight * distance) / 10).toFixed(2);
+
+        // Создание строки таблицы
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${name}</td>
+            <td>${weight}</td>
+            <td>${distance}</td>
+            <td>${deliveryCost} руб.</td>
+        `;
+        tbody.appendChild(row);
+
+        // Очистка формы
+        form.reset();
+    });
+</script>
+
+</body>
+</html>
