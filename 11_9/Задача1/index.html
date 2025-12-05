@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Форма опроса</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  form {
+    max-width: 600px;
+    
+  }
+  .error {
+    color: red;
+    font-size: 0.9em;
+  }
+  .result {
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    max-width: 400px;
+  }
+  .interests-list {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 0;
+  }
+  .interests-list li {
+      padding: 0;
+    }
+  
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  input[type="text"], input[type="email"] {
+    width: 200px;
+    height: 30px;
+    padding: 8px;
+    box-sizing: border-box;
+  } 
+
+  #comments {
+    width: 400px;
+    height: 50px;
+    padding: 8px;
+    box-sizing: border-box;
+    font:Arial, sans-serif;
+  }
+  .form-row {
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.sentBtn {
+  margin-top: 30px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Форма опроса</h1>
+
+<form class="surveyForm" novalidate>
+ <div class="form-row">
+    <label for="name">Имя пользователя:
+    <input type="text" id="name" name="name"/>
+    <div class="error" id="nameError"></div></label>
+  
+  
+    <label for="email">Email: 
+    <input type="email" id="email" name="email" />
+    <div class="error" id="emailError"></div>
+  </label>
+  
+  <label>
+    Пол:
+    <input type="radio" name="gender" value="Мужской" /> Мужской
+    <input type="radio" name="gender" value="Женский" checked/> Женский
+  </label>
+  
+  <label>
+    Оценка сервиса: <span id="scoreValue">5</span>
+    <input type="range" id="score" name="score" min="1" max="10" value="5" />
+  </label>
+  
+  
+  <label for="interests-list">Интересы пользователя:
+  <ul class="interests-list">
+    <li><input type="checkbox" name="Спорт">Спорт</input></li>
+    <li><input type="checkbox" name="Музыка">Музыка</input></li>
+    <li><input type="checkbox" name="Путешествия">Путешествия</input></li>
+    <li><input type="checkbox" name="Кино">Кино</input></li>      
+  </ul>
+</label>
+  
+  <label for="comments">Дополнительные комментарии:</label>
+  <textarea id="comments" name="comments" rows="10"></textarea>
+</div>
+   
+  <button class="sentBtn" type="submit">Отправить</button>
+</form>
+
+<div id="output" class="result"></div>
+
+<script>
+  const form = document.querySelector('.surveyForm');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
+  const scoreRange = document.getElementById('score');
+  const scoreValue = document.getElementById('scoreValue');
+  const outputDiv = document.getElementById('output');
+
+
+  // Обновление отображения оценки при движении ползунка
+  scoreRange.addEventListener('input', () => {
+    scoreValue.textContent = scoreRange.value;
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+  
+    // Очистка ошибок
+    nameError.textContent = '';
+    emailError.textContent = '';
+
+    let valid = true;
+
+    // Валидация имени
+    if (nameInput.value.trim() === '') {
+      nameError.textContent = 'Пожалуйста, введите имя';
+      valid = false;
+    }
+
+    // Валидация email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailInput.value.trim() === '') {
+      emailError.textContent = 'Пожалуйста, введите email';
+      valid = false;
+    } else if (!emailPattern.test(emailInput.value.trim())) {
+      emailError.textContent = 'Некорректный формат email!';
+      valid = false;
+    }
+
+    if (!valid) {
+      return;
+    }
+
+    // Собираем данные
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const genderInputs = document.querySelectorAll('input[name="gender"]');
+    let gender = '';
+    for (const g of genderInputs) {
+      if (g.checked) {
+        gender = g.value;
+        break;
+      }
+    }
+    const score = scoreRange.value;
+    const interestsSelect = document.querySelectorAll('.interests-list input[type="checkbox"]');
+    const selectedInterests = Array.from(interestsSelect).filter(checkbox => checkbox.checked)
+    const checkedValues = selectedInterests.map(checkbox => checkbox.name);
+    const comments = document.getElementById('comments').value.trim();
+
+    // Формируем вывод
+    outputDiv.innerHTML = `
+      <h2>Результаты опроса</h2>
+      <p><strong>Имя:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Пол:</strong> ${gender}</p>
+      <p><strong>Оценка сервиса:</strong> ${score}</p>
+      <p><strong>Интересы:</strong> ${checkedValues.length > 0 ? checkedValues.join(', '):'' }</p> 
+      <p><strong>Комментарии:</strong> ${comments || ''}</p>
+    `;
+
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (form) {
+      // Сброс формы
+      form.reset();
+  }
+});
+</script>
+</body>
+</html>
