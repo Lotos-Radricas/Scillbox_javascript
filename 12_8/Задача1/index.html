@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Подарок посетителю</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #d0d8e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  /* Основной стиль карточки */
+  .popup-card {
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    padding: 20px;
+    width: 500px;
+    height: 150px;
+    box-sizing: border-box;
+    display: flex;
+  }
+  
+  /* Изображение подарка */
+  .popup-card img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+  }
+
+  /* Контейнер для текста и кнопки */
+  .content {
+    flex: 1;
+  }
+
+  /* Заголовок */
+  .title {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 0 0 10px 0;
+  }
+
+  /* Текст сообщения */
+  .message {
+    margin: 0 0 15px 0;
+    font-size: 1em;
+    color: #333;
+  }
+
+  /* Кнопка */
+  .close-btn {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #0d0000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin: 0 auto;
+  }
+
+  .close-btn:hover {
+    background-color: #2980b9;
+  }
+</style>
+</head>
+<body>
+
+<!-- Всплывающая карточка -->
+<div class="popup-card" id="giftCard">
+  <img class="card-img" src="img/discount.svg" alt="Icon" />
+  <div class="content">
+    <div class="title">Подарок при первой покупке!</div>
+    <button class="close-btn" id="closeBtn">Отлично!</button>
+  </div>
+</div>
+
+<script>
+  // Массив подарков
+  const giftArr = [
+    {
+      title: "Скидка 20% на первую покупку в нашем магазине!",
+      icon: "img/discount.svg"
+    },
+    {
+      title: "Скидка 10% на всё!",
+      icon: "img/discount_2.svg"
+    },
+    {
+      title: "Подарок при первой покупке в нашем магазине!",
+      icon: "img/gift.svg"
+    },
+    {
+      title: "Бесплатная доставка для вас!",
+      icon: "img/delivery.svg"
+    },
+    {
+      title: "Сегодня день больших скидок!",
+      icon: "img/discount_3.svg"
+    }
+  ];
+
+  // Функция для выбора случайного подарка
+  function getRandomGift() {
+    const index = Math.floor(Math.random() * giftArr.length);
+    return giftArr[index];
+  }
+
+  // Обработчик для закрытия карточки
+  document.getElementById('closeBtn').addEventListener('click', () => {
+    document.getElementById('giftCard').remove();
+  });
+  // Функция для выбора случайного подарка
+  function getRandomGift() {
+    const index = Math.floor(Math.random() * giftArr.length);
+    return giftArr[index];
+  }
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.querySelector('.popup-card');
+  const title = popup.querySelector('.title');
+  const img = popup.querySelector('.card-img');
+  const closeBtn = document.querySelector('.close-btn');
+
+  // Скрываем блок при загрузке страницы
+  popup.style.display = 'none';
+
+  // изменяем содержимое и показываем через 3 секунды 
+  setTimeout(() => {
+    const gift = getRandomGift();
+    title.textContent = gift.title;
+    img.src = gift.icon;
+
+    // Показываем блок
+    popup.style.display = 'flex';
+  }, 3000);
+});
+</script>
+</body>
+</html>
