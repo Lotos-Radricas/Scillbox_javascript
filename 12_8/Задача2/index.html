@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Промокод</title>
+<style>
+  body {
+    background-color: #d0d6dc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .popup {
+    position: relative;
+    width: 400px;
+    background-color: #fbfcfe;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    padding: 20px;
+  }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .input-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 10px;
+  }
+  input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  input[type="text"]:focus {
+     border: 1px solid #29B0D9; /* Параметры рамки */
+     outline: none; /* убираем стандартную рамку фокус */
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .apply-btn {
+    background-color: #339aff;
+    color: #fff;
+  }
+  #message {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="popup">
+  <div class="input-area">
+    <input type="text" id="promoInput" name="promoInput" placeholder="ПРОМОКОД" />
+    <button class="apply-btn" onclick="applyPromo()">Применить</button>
+  </div>
+  <div id="message"></div>
+</div>
+
+<script>
+    // Объект промокода
+    const promocodeObj = {
+    promocode: "PROM50",
+    gift: "Скидка 50%"
+    };
+
+    // Вспомогательная функция для получения данных из куки
+    function getCookie() {
+    return document.cookie.split('; ').reduce((acc, item) => {
+    const [name, value] = item.split('=')
+    acc[name] = value
+    return acc
+    }, {})
+    }
+    
+    const cookies = getCookie() // Получение данных
+
+    
+  // Вспомогательная функция для установки cookie
+    function setCookieFromObject(obj, days = 7) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      const expires = "expires=" + date.toUTCString();
+      
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          //document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}; ${expires}; path=/`;
+          document.cookie = `${key}=${obj[key]};expires=${date.toUTCString()};path=/`;
+        } 
+      }
+    }
+
+  function applyPromo() {
+    const input = document.getElementById('promoInput');
+    const messageDiv = document.getElementById('message');
+    const promo = input.value.trim();
+    const promoTrue = promocodeObj.promocode;
+    
+    
+    if (promo === promocodeObj.promocode) {
+
+      // Записываем промокод в cookie на 7 дней
+      setCookieFromObject(promocodeObj);
+
+      messageDiv.innerHTML = "Промокод применён. " +  promocodeObj.gift;
+      messageDiv.style.color = 'green';
+    }
+    else {
+        messageDiv.innerHTML='';
+    }
+  }
+
+  // При загрузке провериv, есть ли промокод в cookie
+  window.onload = () => {
+    const storedPromo = getCookie();   // Получить все куки
+
+    const messageDiv = document.getElementById('message');
+
+// Получить конкретное значение по имени
+
+    const promoData = storedPromo.promocode;
+
+
+      if (promoData) {
+        
+      document.getElementById('promoInput').value = promoData
+      messageDiv.innerHTML = "Промокод применён. " +  storedPromo.gift;
+      messageDiv.style.color = 'green';
+    } else {
+      document.getElementById('promoInput').value ='';
+      document.getElementById('promoInput').placeholder="ПРОМОКОД"
+    }
+  }
+
+</script>
+</body>
+</html>
