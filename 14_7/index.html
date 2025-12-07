@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Мои фильмы</title>
+    
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <form id="film-form">
+      <input type="hidden" id="movieId" />
+      <label for="title">Название:</label><br />
+      <input type="text" id="title" name="title" /><br />
+      <label for="genre">Жанр:</label><br />
+      <input type="text" id="genre" name="genre" /><br />
+      <label for="year">Год:</label><br />
+      <input type="text" id="year" name="year" /><br />
+      <input type="checkbox" id="isWatched" name="isWatched" />
+      <label for="isWatched">Успели посмотреть?</label><br />
+
+
+      <button type="submit" id="submitButton">Добавить</button>
+      <button id="cancelButton">Отменить редактирование</button>
+      <div class="error" id="errorMsg"></div>
+    </form>
+
+    <div id="sortContainer">
+      <select id="sortCriteria">
+        <option value="title">Название</option>
+        <option value="genre">Жанр</option>
+        <option value="year">Год</option>
+      </select>
+      <button id="sortButton">Сортировать</button>
+    </div>
+    <table id="film-table">
+      <thead>
+        <tr>
+          <th>Название</th>
+          <th>Жанр</th>
+          <th>Год</th>
+          <th>Успели посмотреть?</th>
+          <th>Действие</th>
+        </tr>
+      </thead>
+      <tbody id="film-tbody">
+        <!-- Здесь будут фильмы -->
+      </tbody>
+    </table>
+
+    
+    <script src="script.js"></script>
+  </body>
+</html>
