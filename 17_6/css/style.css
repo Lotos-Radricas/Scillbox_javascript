@@ -1,0 +1,147 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(187, 204, 208);
+  padding: 30px;
+  color: #333;
+}
+
+form {
+
+  padding: 20px;
+  margin-bottom: 20px;
+  align-items: center;
+  background-color: rgb(187, 204, 208);
+  text-align: center;
+}
+
+
+form input[type="text"], input[type="date"], input[type="number"] {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+}
+
+
+form button {
+  background-color: #0589a0;
+  color: #fff;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 15px;
+  width: 50%;
+}
+
+form button:hover {
+  background-color: #07bada;
+  cursor: pointer;
+}
+
+header {
+  justify-content: space-between;
+  text-align: center; 
+  background-color: rgb(187, 204, 208);
+  margin-bottom: 0px;
+  padding-top: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.header-center {
+  width: 100%;
+  justify-content: center;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  background-color: #fff;
+  text-align: left;
+  border-collapse: collapse;
+  box-shadow: 0px 0px 5px #999;
+}
+
+th,
+td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  padding: 10px;
+  background-color: #333; /* исходный цвет */
+  color: #ffffff;
+  cursor: default; /* курсор по умолчанию */
+  transition: color 0.3s, background-color 0.3s; /* плавный переход */
+}
+
+th:hover {
+  color: #ffffff; /* цвет текста при наведении */
+  background-color: #bdc0c3; /* цвет фона при наведении */
+  cursor: pointer; /* курсор руки при наведении */
+}
+
+td {
+  vertical-align: top;
+}
+.deleteBtn {
+  background-color: rgb(190, 3, 3);
+  color: white;
+  width: 100%;
+  border: 0;
+  border-radius: 15px;
+  height: 30px;
+}
+
+.deleteBtn:hover {
+  background-color: #780303;
+  cursor: pointer;
+}
+
+#addBtn {
+  background-color:rgb(27, 154, 148);
+  color: white;
+  width: 150px;
+  border: 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  height: 35px;
+}
+
+#addBtn:hover {
+  background-color: rgb(16, 229, 218);
+  cursor: pointer;
+}
+
+
+/* HTML: <div class="loader"></div> */
+.preloader {
+  width: 50px;
+  aspect-ratio: 1;
+  --_c:no-repeat radial-gradient(farthest-side,#25b09b 92%,#0000);
+  background: 
+    var(--_c) top,
+    var(--_c) left,
+    var(--_c) right,
+    var(--_c) bottom;
+  background-size: 12px 12px;
+  animation: l7 1s infinite;
+  position: absolute;
+  left: calc(50% - 25px);
+  top: calc(80% - 25px);
+  
+}
+@keyframes l7 {to{transform: rotate(.5turn)}}
+
+.preloader.active {
+  display: block;
+}
+.search-container {
+  margin-top: 20px;
+}
