@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Загрузка изображений и ProgressBars</title>
+<style>
+  .progress-container {
+    margin-bottom: 30px;
+  }
+  #progress-bar {
+    height: 20px;
+    max-width: 500px;
+    overflow: hidden;
+    position: relative;
+  }
+  #progress-bar-2 {
+    height: 20px;
+    max-width: 500px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #progress-fill {
+    height: 100%;
+    background-color: #4caf50;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform linear;
+  }
+  #progress-fill-2 {
+    height: 100%;
+    background-color: #bb55ba;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform linear;
+  }
+  .images-row {
+    margin-top: 30px;
+  }
+  img {
+    max-width: 150px;
+    margin-right: 10px;
+  }
+</style>
+</head>
+<body>
+    <div class="images-row" id="images-row-1"></div>
+    <div id="progress-bar-container" class="progress-container">
+      <div id="progress-bar">
+        <div id="progress-fill"></div>
+      </div>
+      <div id="seconds-elapsed"></div>
+    </div>
+
+
+    <div class="images-row" id="images-row-2"></div>
+    <div id="progress-bar-container2" class="progress-container">
+      <div id="progress-bar-2">
+        <div id="progress-fill-2"></div>
+      </div>
+      <div id="seconds-elapsed-2"></div>
+    </div>
+
+<script>
+
+    function loadImagesSet1() {
+    const images = [
+        'img/cat1.jpg',
+        'img/cat2.jpg',
+        'img/cat3.jpg'
+    ];
+    const delay = Math.random() * 3000 + 2000; // 2000-5000 мс
+    return new Promise((resolve) => {
+        setTimeout(() => resolve({ images, delay }), delay);
+    });
+    }
+
+    function loadImagesSet2() {
+    const images = [
+        'img/dog1.jpg',
+        'img/dog2.jpg',
+        'img/dog3.jpg'
+    ];
+    const delay = Math.random() * 3000 + 2000; // 2000-5000 мс
+    return new Promise((resolve) => {
+        setTimeout(() => resolve({ images, delay }), delay);
+    });
+    }
+
+    //Функция анимации прогресс-бара
+    function animateProgressBar(timeSeconds, fillElement, secondsDisplay) {
+    return new Promise((resolve) => {
+        fillElement.style.transition = `transform ${timeSeconds}s linear`;
+        fillElement.style.transform = 'scaleX(1)';
+
+        // Обновление таймера каждую секунду
+        let elapsed = 0;
+        secondsDisplay.textContent = '';
+        const intervalId = setInterval(() => {
+        elapsed++;
+        secondsDisplay.textContent = `${elapsed} с`;
+        }, 1000);
+
+        setTimeout(() => {
+        clearInterval(intervalId);
+        secondsDisplay.textContent = `${Math.round(timeSeconds)} с`;
+        resolve();
+        }, timeSeconds * 1000);
+    });
+    }
+
+    //Основная функция
+    async function run() {
+        const container1 = document.getElementById('progress-bar');
+        const fill1 = document.getElementById('progress-fill');
+        const secondsDisplay1 = document.getElementById('seconds-elapsed');
+
+        const container2 = document.getElementById('progress-bar-2');
+        const fill2 = document.getElementById('progress-fill-2');
+        const secondsDisplay2 = document.getElementById('seconds-elapsed-2');
+
+        // Загрузка первого набора
+        const { images: images1, delay: delay1 } = await loadImagesSet1();
+
+        // Запускаем прогресс-бар для первого
+        await animateProgressBar(delay1 / 1000, fill1, secondsDisplay1);
+
+        // После завершения показываем картинки
+        const imagesRow1 = document.getElementById('images-row-1');
+        images1.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            imagesRow1.appendChild(img);
+        });
+
+        // Загружаем второй набор
+        const { images: images2, delay: delay2 } = await loadImagesSet2();
+
+        // Обновляем прогресс-бар для второго
+        await animateProgressBar(delay2 / 1000, fill2, secondsDisplay2);
+
+        // После завершения показываем картинки
+        const imagesRow2 = document.getElementById('images-row-2');
+        images2.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            imagesRow2.appendChild(img);
+        });
+    }
+
+    run();
+
+</script>
+</body>
+</html>
