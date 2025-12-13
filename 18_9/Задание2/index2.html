@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Создание progress bar</title>
+    <style>
+        #progress-bar {
+            height: 20px;
+            width: 500px;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            margin-top: 20px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--duration) ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="progress-container" style="margin-bottom: 10px;">
+    <div id="progress-bar"></div>
+    </div>
+    <div id="seconds-count"></div>
+
+<script>
+    // Функция для получения случайного времени от 2 до 20 секунд
+    function getRandomDelay() {
+
+        return Math.random() * 18000 + 2000; // миллисекунды
+
+  }
+    
+  function progress(time) {
+        const minTime = 2; // минимальное время в секундах
+        const maxTime = Math.max(time, minTime); // чтобы не было меньше 2 секунд
+
+        const progressBar = document.getElementById('progress-bar');
+        const secondsDisplay = document.getElementById('seconds-count');
+
+        // Обновляем CSS переменную для длительности анимации
+        progressBar.style.setProperty('--duration', maxTime + 's');
+
+        // Обнуляем прогресс
+        progressBar.style.transform = 'scaleX(0)';
+        //secondsDisplay.textContent = '0 секунд';
+        secondsDisplay.textContent = ' ';
+
+        // В следующей строке запускаем анимацию растягивания
+        setTimeout(() => {
+            progressBar.style.transform = 'scaleX(1)';
+        }, 50);
+
+        // Устанавливаем таймер для обновления счетчика
+        let elapsedSeconds = 0;
+        const totalSeconds = Math.ceil(maxTime);
+
+        const intervalId = setInterval(() => {
+            elapsedSeconds++;
+ 
+            if (elapsedSeconds <= totalSeconds+1) {
+            
+                if (elapsedSeconds> 0) {
+                    secondsDisplay.textContent = `${elapsedSeconds} с`;
+                }
+            }
+        }, 1000);
+
+        // После окончания анимации останавливаем счетчик
+        setTimeout(() => {
+            clearInterval(intervalId);
+        }, maxTime * 1000);
+    }
+
+    window.addEventListener('load', () => {
+
+        const timer = getRandomDelay();
+
+        progress(timer/1000);
+    } );
+
+</script>
+</body>
+</html>
