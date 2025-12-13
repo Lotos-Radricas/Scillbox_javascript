@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Загрузка изображений с задержкой</title>
+<style>
+  .images-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  img {
+    max-width: 150px;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+
+<div id="images1" class="images-row"></div>
+
+<div id="images2" class="images-row"></div>
+
+<script>
+  // Функция для получения случайного времени от 2 до 5 секунд
+  function getRandomDelay() {
+    return Math.random() * 3000 + 2000; // миллисекунды
+  }
+
+  // Первая функция, возвращающая промис с массивом URL изображений
+  function loadImagesSet1() {
+    const images = [
+      'img/cat1.jpg',
+      'img/cat2.jpg',
+      'img/cat3.jpg'
+    ];
+    return new Promise((resolve) => {
+      const delay = getRandomDelay();
+      setTimeout(() => {
+        resolve(images);
+      }, delay);
+    });
+  }
+
+  // Вторая функция, возвращающая промис с массивом URL изображений
+  function loadImagesSet2() {
+    const images = [
+      'img/dog1.jpg',
+      'img/dog2.jpg',
+      'img/dog3.jpg'
+    ];
+    return new Promise((resolve) => {
+      const delay = getRandomDelay();
+      setTimeout(() => {
+        resolve(images);
+      }, delay);
+    });
+  }
+
+  // Обработка промисов и вывод изображений
+  window.addEventListener('load', () => {
+    const container1 = document.getElementById('images1');
+    const container2 = document.getElementById('images2');
+
+    loadImagesSet1().then((urls) => {
+      urls.forEach(url => {
+        const img = document.createElement('img');
+        img.src = url;
+        container1.appendChild(img);
+      });
+    });
+
+    loadImagesSet2().then((urls) => {
+      urls.forEach(url => {
+        const img = document.createElement('img');
+        img.src = url;
+        container2.appendChild(img);
+      });
+    });
+  });
+</script>
+</body>
+</html>
