@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Список доставок</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<h1>Список доставок</h1>
+<div id="deliveryContainer" class="delivery-list"></div>
+
+<script type="module">
+import { Delivery } from './delivery.js';
+
+// Инициализация массива доставок
+const deliveryArr = [
+  new Delivery("Ольга", "ул. Вымыслов, д. 12", 8),
+  new Delivery("Дмитрий", "ул. Задачная, д. 7", 3),
+  new Delivery("Оля", "ул. Ткачей, д. 43", 11)
+];
+
+// Получение контейнера
+const container = document.getElementById('deliveryContainer');
+
+// Функция для отображения всех доставок
+function renderDeliveries() {
+  container.innerHTML = ''; 
+  deliveryArr.forEach(delivery => {
+    const card = delivery.createCard();
+    container.appendChild(card);
+  });
+}
+
+
+renderDeliveries();
+
+</script>
+
+</body>
+</html>
