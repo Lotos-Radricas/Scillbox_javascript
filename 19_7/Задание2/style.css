@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #ccc;
+  }
+  .delivery-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 40px;
+  }
+  .delivery-card {
+    border: 1px solid #939191;
+    padding: 10px;
+    width: 250px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    background-color: white;
+    border-radius: 8px;
+    position: relative;
+  }
+  .delivery-card h3 {
+    margin: 0 0 10px 0;
+  }
+
+  .field-label{
+    color: #999696;
+    font-size: 11px;
+    margin-top: 10px;
+  }
+
+  .edit-btn {
+  
+    border-radius: 10px;
+    color: #078cb9;
+    border: 1px solid #078cb9;
+    background-color: white;
+    font-size: 11px;
+    position: absolute;
+    top: 5px; /* отступ сверху */
+    right: 10px; /* отступ справа */
+
+  }
+  button:hover {
+  cursor: pointer;
+  background-color: rgb(61, 61, 240);
+  color: white;
+}
+
+  .status-canceled {
+  opacity: 0.5;  /*полупрозрачность */
+}
+.status-delivered {
+  border: 3px solid #038d08ff;
+}
+
+.form-container {
+  position: relative; /* чтобы позиционировать внутри этого блока */
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  width: 280px;
+  margin: 0;
+}
+
+input {
+  width: 100%;
+  height: 25px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 0;
+  padding-left: 10px;
+}
+
+#saveBtn {
+  width: 100%;
+  padding: 10px 20px;
+  background-color:blue;
+  color: white;
+  border-radius: 10px;
+}
+/* Кнопка крестика */
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Пример: стиль для всех select */
+select {
+  padding-left: 10px; /* внутренний отступ */
+  background-color: white;
+  height: 30px;
+  width: 100%;
+  color: #000; /* цвет текста */
+  border-radius: 10px;
+}
