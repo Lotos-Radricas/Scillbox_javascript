@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Список доставок</title>
+  <link href="style3.css" rel="stylesheet">
+</head>
+<body>
+
+  <h1>Список доставок</h1>
+  <div id="deliveryContainer" class="delivery-list"></div>
+
+  <button id="calculateTotal">Общее расстояние</button>
+  <div id="result"></div>
+
+  <script type="module">
+    import { Delivery } from './Delivery3.js';
+    import { EditDelivery } from './EditDelivery3.js';
+
+    const deliveryArr = [
+      new EditDelivery("Ольга", "ул. Вымыслов, д. 12", 8, "delivery"),
+      new EditDelivery("Дмитрий", "ул. Задачная, д. 7", 3, "delivered"),
+      new EditDelivery("Оля", "ул. Ткачей, д. 43", 11, "canceled")
+    ];
+
+    const container = document.getElementById('deliveryContainer');
+
+    deliveryArr.forEach(delivery => {
+      const card = delivery.createCard();
+
+      delivery.updateCardStyle();
+      container.appendChild(card);
+     
+    });
+    document.getElementById('calculateTotal').addEventListener('click', () => {
+    const totalDistance = EditDelivery.getTotalDistance(deliveryArr);
+    document.getElementById('result').textContent = `Общее расстояние: ${totalDistance} км`;
+    const res_str = document.getElementById('result')
+    res_str.style.fontWeight = "bold";
+
+    });
+    
+</script>
+</body>
+</html>
