@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #ccc;
+  }
+  .delivery-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px;
+  }
+  .delivery-card {
+    border: 1px solid #939191;
+    padding: 10px;
+    width: 220px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    background-color: white;
+    border-radius: 8px;
+  }
+  .delivery-card h3 {
+    margin: 0 0 10px 0;
+  }
+
+  .field-label{
+    color: #ccc;
+    font-size: 11px;
+    margin-top: 10px;
+  }
