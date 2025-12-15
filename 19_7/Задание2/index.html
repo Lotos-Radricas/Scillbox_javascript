@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Список доставок</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+  <h1>Список доставок</h1>
+  <div id="deliveryContainer" class="delivery-list"></div>
+
+  <script type="module">
+    import { Delivery } from './Delivery.js';
+    import { EditDelivery } from './EditDelivery.js';
+
+    const deliveryArr = [
+      new EditDelivery("Ольга", "ул. Вымыслов, д. 12", 8, "delivery"),
+      new EditDelivery("Дмитрий", "ул. Задачная, д. 7", 3, "delivered"),
+      new EditDelivery("Оля", "ул. Ткачей, д. 43", 11, "canceled")
+    ];
+
+    const container = document.getElementById('deliveryContainer');
+
+    deliveryArr.forEach(delivery => {
+      const card = delivery.createCard();
+
+      delivery.updateCardStyle();
+      container.appendChild(card);
+     
+    });
+
+    
+</script>
+</body>
+</html>
